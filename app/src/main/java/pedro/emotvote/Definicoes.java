@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 
 import info.plux.pluxapi.Constants;
+import pl.droidsonroids.gif.GifTextView;
 
 
 public class Definicoes extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class Definicoes extends AppCompatActivity {
     Intent mIntent;
     TextView text;
     Button button;
-    ImageView imageLoading, imageCorrect, imageIncorrect;
+    GifTextView imageLoading, imageCorrect, imageIncorrect;
 
     EditText textConexao;
 
@@ -53,13 +54,14 @@ public class Definicoes extends AppCompatActivity {
         final int delay = 500; //milliseconds
 
 
-
+        /*
         handler.postDelayed(new Runnable(){
             public void run(){
                 bitalinoInformacao();
                 handler.postDelayed(this, delay);
             }
         }, delay);
+        */
     }
 
     private void initUIElements() {
@@ -67,11 +69,20 @@ public class Definicoes extends AppCompatActivity {
             public void onClick(View v) {
                 boolean formatoMAC = textConexao.getText().toString().matches("\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d:\\d\\d");
                 if(formatoMAC) {
-                    findViewById(R.id.imageView_loading).setVisibility(View.VISIBLE);
-                    mService.ligar(textConexao.getText().toString());
+                    Intent intent = new Intent(Definicoes.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    // findViewById(R.id.imageView_loading).setVisibility(View.VISIBLE);
+                    // mService.ligar(textConexao.getText().toString());
                 }
-                else
+                else {
+                    // findViewById(R.id.imageView_loading).setVisibility(View.VISIBLE);
+                    Intent intent = new Intent(Definicoes.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
                     Toast.makeText(getApplicationContext(), "MAC Address tem de estar no formato \"00:00:00:00:00:00\"", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
@@ -104,9 +115,9 @@ public class Definicoes extends AppCompatActivity {
 
         textConexao = (EditText) findViewById(R.id.editText_MACAdress);
         buttonLigar = (Button) findViewById(R.id.button_ligar);
-        imageCorrect = (ImageView) findViewById(R.id.imageView_correct);
-        imageIncorrect = (ImageView) findViewById(R.id.imageView_incorrect);
-        imageLoading = (ImageView) findViewById(R.id.imageView_loading);
+        imageCorrect = (GifTextView) findViewById(R.id.imageView_correct);
+        imageIncorrect = (GifTextView) findViewById(R.id.imageView_incorrect);
+        imageLoading = (GifTextView) findViewById(R.id.imageView_loading);
     }
 
 
